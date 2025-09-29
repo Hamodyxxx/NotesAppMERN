@@ -1,9 +1,19 @@
 import type { INote } from "../types/INote";
+import AppError from "../utils/AppError";
 
 const BASE_URI = "http://localhost:5001/notes";
 
 export const getAllNotes = async () => {
     const res = await fetch(BASE_URI);
+
+    if (!res.ok) throw new AppError({
+      extraDetails: {
+        statusCode: res.status,
+        data: await res.json(),
+        message: "Failed to show notes"
+      }
+    });
+
     const data = await res.json();
 
     return data;
@@ -11,6 +21,15 @@ export const getAllNotes = async () => {
 
 export const getNoteById = async (id: number) => {
     const res = await fetch(`${BASE_URI}/${id}`);
+
+    if (!res.ok) throw new AppError({
+      extraDetails: {
+        statusCode: res.status,
+        data: await res.json(),
+        message: "Note not found"
+      }
+    });
+
     const data = await res.json();
 
     return data;
@@ -23,7 +42,14 @@ export const createNote = async (note: Omit<INote, "_id">) => {
         body: JSON.stringify(note),
       });
     
-    if (!res.ok) throw new Error("Failed to create note");
+    if (!res.ok) throw new AppError({
+      extraDetails: {
+        statusCode: res.status,
+        data: await res.json(),
+        message: "Failed to Create Note"
+      }
+    });
+
     return res.json();
 }
 
@@ -34,7 +60,14 @@ export const updateNote = async ({id, note}: { id: number, note: Partial<Omit<IN
         body: JSON.stringify(note),
       });
     
-    if (!res.ok) throw new Error("Failed to update note");
+    if (!res.ok) throw new AppError({
+      extraDetails: {
+        statusCode: res.status,
+        data: await res.json(),
+        message: "Failed to update note"
+      }
+    });    
+
     return res.json();
 }
 
@@ -43,6 +76,13 @@ export const deleteNote = async (id: number) => {
       method: "DELETE",
     });
 
-    if (!res.ok) throw new Error("Failed to delete note");
+    if (!res.ok) throw new AppError({
+      extraDetails: {
+        statusCode: res.status,
+        data: await res.json(),
+        message: "Note not deleted"
+      }
+    });    
+    
     return id;
 };

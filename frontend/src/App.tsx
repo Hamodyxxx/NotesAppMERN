@@ -6,7 +6,6 @@ import { Toaster } from 'react-hot-toast'
 import useScrollToTopOnPathchange from './hooks/useScrollToTopOnPathchange'
 
 function App() {
-
   useScrollToTopOnPathchange();
 
   return (

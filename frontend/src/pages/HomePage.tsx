@@ -1,15 +1,13 @@
-import { useState } from "react";
 import NavBar from "../components/NavBar"
-import RateLimitedUi from "../components/RateLimitedUI";
+import NotesContainer from "../components/NotesContainer"
 
 const HomePage = () => {
-  const [isRateLimited,] = useState(true);
 
 
   return (
     <>
       <NavBar/>
-     {isRateLimited ? <RateLimitedUi/> : null} 
+      <NotesContainer/>
     </>
   )
 }
