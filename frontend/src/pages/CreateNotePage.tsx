@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react"
 import { Link } from "react-router"
-import FormContainer from "../components/FormContainer"
+import Form from "../components/Form"
 
 const CreateNotePage = () => {
   return (
@@ -10,9 +10,9 @@ const CreateNotePage = () => {
         Back to Notes
       </Link>
 
-      <FormContainer title="Create New Note">
-        <FormContainer.CreateNoteForm/>
-      </FormContainer>
+      <Form title="Create New Note">
+        <Form.CreateNoteForm/>
+      </Form>
     </div>
   )
 }

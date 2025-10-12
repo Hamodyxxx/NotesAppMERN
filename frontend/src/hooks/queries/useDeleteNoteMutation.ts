@@ -7,12 +7,11 @@ const useDeleteNoteMutation = () => {
 
   return useMutation({
     mutationFn: deleteNote,
-    onSuccess: (deletedId: number) => {
+    onSuccess: (deletedId: string) => {
       // Invalidate the notes list so it refreshes
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       queryClient.invalidateQueries({ queryKey: ["notes", deletedId] });
 
-      // Optionally, remove the deleted note from cache immediately (optimistic update)
       queryClient.setQueryData(["notes"], (oldData: INote[]) => {
         if (!oldData) return oldData;
         return oldData.filter((note: INote) => note._id !== deletedId);

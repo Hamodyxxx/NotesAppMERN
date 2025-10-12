@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router"
-import FormContainer from "../components/FormContainer"
+import Form from "../components/Form"
 import NoteContextProvider from "../contexts/noteContext/NoteContextProvider"
 import useGetNoteById from "../hooks/queries/useGetNoteById"
 import { ArrowLeft, Trash2Icon } from "lucide-react"
@@ -32,9 +32,9 @@ const NoteDetailsPage = () => {
       </div>
 
       <NoteContextProvider value={note}>
-        <FormContainer title="">
-          <FormContainer.UpdateNoteForm/>
-        </FormContainer>
+        <Form title="">
+          <Form.UpdateNoteForm/>
+        </Form>
       </NoteContextProvider>
     </div>
   )

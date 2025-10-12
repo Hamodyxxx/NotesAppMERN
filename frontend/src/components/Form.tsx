@@ -13,11 +13,11 @@ interface CreateNotForm {
   title: string;
 }
 
-interface FormContainerProps extends PropsWithChildren {
+interface FormProps extends PropsWithChildren {
   title: string;
 }
 
-const FormContainer = ({ children, title }: FormContainerProps) => {
+const Form = ({ children, title }: FormProps) => {
   return (
     <div className="flex flex-col gap-6 py-5 px-5 bg-primary/38 rounded-2xl">
       <h2 className="text-4xl">{title}</h2>
@@ -27,7 +27,7 @@ const FormContainer = ({ children, title }: FormContainerProps) => {
   );
 };
 
-FormContainer.CreateNoteForm = function CreateNoteForm() {
+Form.CreateNoteForm = function CreateNoteForm() {
   const { register, handleSubmit } = useForm<CreateNotForm>();
   const { mutate, isError, error, isPending } = useCreateNoteMutation();
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ FormContainer.CreateNoteForm = function CreateNoteForm() {
   );
 };
 
-FormContainer.UpdateNoteForm = function UpdateNoteForm() {
+Form.UpdateNoteForm = function UpdateNoteForm() {
   const note = useNoteContext();
   const { register, handleSubmit } = useForm<CreateNotForm>({
     defaultValues: {
@@ -139,4 +139,4 @@ FormContainer.UpdateNoteForm = function UpdateNoteForm() {
   );
 };
 
-export default FormContainer;
+export default Form;

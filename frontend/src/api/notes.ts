@@ -1,7 +1,7 @@
 import type { INote } from "../types/INote";
 import AppError from "../utils/AppError";
 
-const BASE_URI = "http://localhost:5001/notes";
+const BASE_URI = `${import.meta.env.MODE === "development" ? "http://localhost:5001" : ""}/notes`;
 
 export const getAllNotes = async (): Promise<INote[]> => {
     const res = await fetch(BASE_URI);
