@@ -6,7 +6,6 @@ const useUpdateNoteMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateNote,
-    // optimistic update
     onMutate: async (updatedNote) => {
       await queryClient.cancelQueries({ queryKey: ["notes"] });
 

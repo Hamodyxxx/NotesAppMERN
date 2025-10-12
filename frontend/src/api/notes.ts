@@ -3,7 +3,7 @@ import AppError from "../utils/AppError";
 
 const BASE_URI = "http://localhost:5001/notes";
 
-export const getAllNotes = async () => {
+export const getAllNotes = async (): Promise<INote[]> => {
     const res = await fetch(BASE_URI);
 
     if (!res.ok) throw new AppError({
@@ -16,10 +16,10 @@ export const getAllNotes = async () => {
 
     const data = await res.json();
 
-    return data;
+    return data as INote[];
 }
 
-export const getNoteById = async (id: number) => {
+export const getNoteById = async (id: string) => {
     const res = await fetch(`${BASE_URI}/${id}`);
 
     if (!res.ok) throw new AppError({
@@ -35,7 +35,7 @@ export const getNoteById = async (id: number) => {
     return data;
 }
 
-export const createNote = async (note: Omit<INote, "_id">) => {
+export const createNote = async (note: Pick<INote, "title" |  "content">): Promise<INote> => {
     const res = await fetch(BASE_URI, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ export const createNote = async (note: Omit<INote, "_id">) => {
     return res.json();
 }
 
-export const updateNote = async ({id, note}: { id: number, note: Partial<Omit<INote, "_id">> }) => {
+export const updateNote = async ({id, note}: { id: string, note: Partial<Omit<INote, "_id">> }) => {
     const res = await fetch(`${BASE_URI}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -71,7 +71,7 @@ export const updateNote = async ({id, note}: { id: number, note: Partial<Omit<IN
     return res.json();
 }
 
-export const deleteNote = async (id: number) => {
+export const deleteNote = async (id: string) => {
     const res = await fetch(`${BASE_URI}/${id}`, {
       method: "DELETE",
     });

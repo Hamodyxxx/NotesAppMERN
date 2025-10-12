@@ -7,7 +7,7 @@ interface NoteCardListProps {
 
 const NoteCardList = ({ notes }: NoteCardListProps) => {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='mt-8 container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto'>
         {notes.map(note => <NoteCard note={note} key={note._id}/>)}
     </div>
   )

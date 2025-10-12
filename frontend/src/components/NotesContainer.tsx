@@ -3,12 +3,13 @@ import useGetAllNotesQuery from '../hooks/queries/useGetAllNotesQuery';
 import NoteCardList from './NoteCardList';
 import RateLimitedUI from './RateLimitedUI';
 import type AppError from '../utils/AppError';
+import NotesNotFound from './ui/NoteNotFound';
 
 const NotesContainer = () => {
     const { data, isLoading, isError, error } = useGetAllNotesQuery();
 
     if(isLoading) {
-        return (<div className='text-primary container py-10 px-10 flex justify-center'>Loading Notes...</div>)
+        return (<div className='text-primary container py-10 px-10 flex justify-center mx-auto'>Loading Notes...</div>)
     }
     
     if(isError) {
@@ -18,6 +19,10 @@ const NotesContainer = () => {
 
     if(!data) {
         return;
+    }
+
+    if(data.length === 0) {
+      return <NotesNotFound/>
     }
 
   return (

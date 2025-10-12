@@ -2,7 +2,7 @@ import { Link } from "react-router"
 import type { INote } from "../types/INote"
 import { formatDate } from "../utils/dateformatters"
 import useDeleteNoteMutation from "../hooks/queries/useDeleteNoteMutation"
-import { PenSquareIcon, Trash } from "lucide-react"
+import { PenSquareIcon, Trash2Icon } from "lucide-react"
 
 interface NoteCardProps {
     note: INote
@@ -14,28 +14,33 @@ const NoteCard = ({
     const deleteNote = useDeleteNoteMutation();
 
   return (
-    <div className='bg-base-300 border-b border-base-content/10'>
-        <Link to={`/note/${note._id}`}>
-            <h2>{note.title}</h2>
-        </Link>
-
-        <p className="h-52">
-            {note.content}
-        </p>
-
-        <div className="flex justify-between">
-            <span>{formatDate(new Date(note.updatedAt))}</span>
-            <div className="flex gap-2 items-center">
-                <Link to={`/note/${note._id}`}>
-                    <PenSquareIcon className="size-4"/>
-                </Link>
-                <button onClick={() => deleteNote.mutate(note._id)} className="text-error">
-                    <Trash className="size-5"/>
-                </button>
-            </div>
+    <Link
+      to={`/note/${note._id}`}
+      className="card bg-base-100 hover:shadow-lg transition-all duration-200 
+      border-t-4 border-solid border-[#6c16f7]"
+    >
+      <div className="card-body">
+        <h3 className="card-title text-base-content">{note.title}</h3>
+        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
+        <div className="card-actions justify-between items-center mt-4">
+          <span className="text-sm text-base-content/60">
+            {formatDate(new Date(note.createdAt))}
+          </span>
+          <div className="flex items-center gap-1">
+            <PenSquareIcon className="size-4" />
+            <button
+              className="btn btn-ghost btn-xs text-error"
+              onClick={(e) => {
+                e.preventDefault()
+                deleteNote.mutate(note._id)
+              }}
+            >
+              <Trash2Icon className="size-4" />
+            </button>
+          </div>
         </div>
-
-    </div>
+      </div>
+    </Link>
   )
 }
 
